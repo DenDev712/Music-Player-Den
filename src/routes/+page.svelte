@@ -56,6 +56,7 @@
 
   //for the next and previous buttons
   function nextSong(){
+    looping = false;
     const wasPlaying = isPlaying;
     currentSongIndex = (currentSongIndex + 1) % songs.length;
     currentSong = songs[currentSongIndex];
@@ -153,13 +154,10 @@
     }
   }
   
-  //looping song function
+  //looping song 
   function loopSong(){
     looping = !looping;
-    if(audioElement.ended && looping === true){
-      currentSongIndex = currentSongIndex - 1; 
-      currentSong = songs[currentSongIndex];
-    }
+    audioElement.loop = looping;
   }
   onMount(() => {
     loadSong();
@@ -211,10 +209,10 @@
     <div class = "otherControls">
       <button class="loop" type="button">
       <!--here make the circles for these svg-->
-        {#if looping}
-        <img class="icon-loop" src="loop.svg" alt="Favorite song" onclick={loopSong}/>
+        {#if looping === false}
+        <img class="icon-loop" src="loop.svg" alt="Loop Audio" onclick={loopSong}/>
         {:else}
-        <img class="icon-loop-bold" src="loop.svg" alt="Favorite song" onclick={loopSong}/>
+        <img class="icon-loop-bold" src="loop.svg" alt="Loop Audio" onclick={loopSong}/>
         {/if}
         
       </button>
@@ -480,9 +478,8 @@
   position: relative;
   overflow: visible;
   aspect-ratio: 27.5/25;
-  -webkit-filter: drop-shadow(0 0 8px black); /* webkit only 
-                     assuming the content is written in black */
-    filter: drop-shadow(0 0 8px black);              /* FF~35 */
+  -webkit-filter: drop-shadow(0 0 8px black);  
+    filter: drop-shadow(0 0 8px black);              
     filter: drop-shadow(0 0 0 8px black);   
   
 }
