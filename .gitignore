@@ -8,8 +8,7 @@ dist/
 .env.*
 !.env.example
 vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
-/songs/
+vite.config.ts.timestamp-* 
 *.mp3
 *.jpg
 .vscode/

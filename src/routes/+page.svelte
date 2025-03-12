@@ -10,17 +10,18 @@
 
   const songs: Song[] = [
     {
-      src: 'src/songs/the-smiths/the-smiths.mp3',
+      src: 'src/songs/song2/the-smiths.mp3',
       artist: 'The Smiths',
       title: 'Bigmouth Strikes Again',
-      cover: 'src/songs/the-smiths/thesmiths.jpg',
+      cover: 'src/songs/song2/thesmiths.jpg',
     },
     {
-      src: 'src/songs/mac-demarco/A Heart Like Hers.mp3',
+      src: 'src/songs/song1/A Heart Like Hers.mp3',
       artist: 'Mac Demarco',
       title: 'A Heart Like Hers',
-      cover: 'src/songs/mac-demarco/macdemarco.jpg',
+      cover: 'src/songs/song1/macdemarco.jpg',
     }
+
   ];
   
   //for the song selection
