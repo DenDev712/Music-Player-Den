@@ -9,8 +9,9 @@ dist/
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-.mp3
-.jpg
+/songs/
+*.mp3
+*.jpg
 .vscode/
 src-tauri/target/
 src-tauri/Cargo.lock
