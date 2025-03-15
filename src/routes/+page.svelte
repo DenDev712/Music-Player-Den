@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+
   interface Song {
     src: string;
     artist: string;
@@ -40,7 +41,9 @@
   function loadSong(){
     if(audioElement){
       audioElement.pause();
+      audioElement.currentTime = 0;
       audioElement.removeEventListener('timeupdate', updateProgress); 
+      audioElement.removeEventListener('ended', nextSong);
     }
       audioElement = new Audio(currentSong.src);
       audioElement.addEventListener('loadedmetadata', () => {
@@ -48,7 +51,13 @@
     });
 
     audioElement.addEventListener('timeupdate', updateProgress);
-    audioElement.addEventListener('ended', nextSong);
+    audioElement.addEventListener('ended', ()=>{
+      if(looping){
+        audioElement.play();
+      }else{
+        nextSong();
+      }
+    });
 
     if(isPlaying) audioElement.play();
 
@@ -157,7 +166,6 @@
   //looping song 
   function loopSong(){
     looping = !looping;
-    audioElement.loop = looping;
   }
   onMount(() => {
     loadSong();
@@ -228,8 +236,8 @@
   </div>
 </main>  
 
-<style>
 
+<style>
 .container{
   height: 300px;
   width: 600px;
