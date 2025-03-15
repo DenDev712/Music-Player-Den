@@ -1,1 +1,1 @@
-![Alt Text](static/player_icons/bookmark.svg)
+![Alt Text](static/player_icons/screenshotPlayer.png)
