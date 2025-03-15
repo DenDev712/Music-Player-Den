@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-import {songs} from '../player/store/audioStore'
-=======
-import {songs} from '../store/audioStore'
->>>>>>> 1a5b219439155e3df49ca81a0d7c1b50745320c9
+
+import {songs} from '../store/audioStore';
 import { updateProgress } from './progress';
 export interface Song {
     src: string;

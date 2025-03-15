@@ -1,0 +1,1 @@
+![Alt Text](static/player_icons/bookmark.svg)
