@@ -109,7 +109,7 @@
   //for the progress bar
   function handleMouseDown(event: MouseEvent) {
     const progressBar = event.currentTarget as HTMLElement;
-    
+    audioElement.pause();
     const seek = (event: MouseEvent) => {
       //rect is the left of the viewport 
       const rect = progressBar.getBoundingClientRect().left;
@@ -129,6 +129,7 @@
     const handleMouseUp = () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      audioElement.play();
     };
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
