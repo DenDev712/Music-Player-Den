@@ -134,12 +134,11 @@
     document.addEventListener('mouseup', handleMouseUp);
 
     seek(event);
-    progressBar.addEventListener('mousedown', handleMouseDown);
 }
 
   //for the search function
   function searchSong(){
-    const searchTerm: string | null = prompt("Search for a song/artist");
+    const searchTerm: string | undefined = prompt("Search for a song/artist")?.trim();
 
     if(!searchTerm) return;
     const normalizedSearch = searchTerm.toLowerCase();
@@ -150,14 +149,11 @@
     );
 
     if(foundIndex !== -1) {
-      const wasPlaying = isPlaying;
       currentSongIndex = foundIndex;
       currentSong = songs[currentSongIndex];
       loadSong();
-      if(!wasPlaying){
-        audioElement.play();
-        isPlaying = true; 
-      }
+      audioElement.play();
+      isPlaying = true; 
     }else{
       alert("Song not found")
     }
