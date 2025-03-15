@@ -109,7 +109,8 @@
   //for the progress bar
   function handleMouseDown(event: MouseEvent) {
     const progressBar = event.currentTarget as HTMLElement;
-    audioElement.pause();
+    //when the user moves the progress bar the music will pause until the user lets go 
+    audioElement.pause(); 
     const seek = (event: MouseEvent) => {
       //rect is the left of the viewport 
       const rect = progressBar.getBoundingClientRect().left;
@@ -129,7 +130,10 @@
     const handleMouseUp = () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      //so when the user goes mouseup the audio plays
       audioElement.play();
+      //so when the paused icon changes to play icon when the user moves the progress bar
+      isPlaying = true;
     };
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
