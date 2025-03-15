@@ -11,6 +11,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-* 
 songs/song1/*.mp3
 songs/song2/*.mp3
+*.mp3
 *.jpg
 .vscode/
 src-tauri/target/
