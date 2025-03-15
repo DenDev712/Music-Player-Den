@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
 
   interface Song {
     src: string;
@@ -23,8 +24,7 @@
       cover: 'src/songs/song1/macdemarco.jpg',
     }
 
-  ];
-  
+  ];  
   //for the song selection
   let currentSongIndex = 0;
   let currentSong = songs[currentSongIndex];
@@ -166,6 +166,10 @@
   onMount(() => {
     loadSong();
   });
+
+  function navigate_library(){
+    goto('src/routes/libraryPage.svelte')
+  }
 </script>
 
 <main class="container">
@@ -174,18 +178,18 @@
     <div class="play-buttons">
       <div class="circles">
         <button class="backwardsButton" type="button" aria-label="Skip backwards" ></button>
-        <img class="reverse" src="forward.svg" alt="The reverse button" onclick={previousSong}/>
+        <img class="reverse" src="/player_icons/forward.svg" alt="The reverse button" onclick={previousSong}/>
         <button class="playButton" type="button" onclick={togglePlay}>
           <div class="play">
             {#if isPlaying}
-              <img id="pause"src="pause.svg" alt="the pause button"/>
+              <img id="pause"src="/player_icons/pause.svg" alt="the pause button"/>
             {:else}
-              <img src="play.svg" alt="the play button"/>
+              <img src="/player_icons/play.svg" alt="the play button"/>
             {/if}
           </div>
         </button>
         <button class="forwardButton" type="button" aria-label="skip forward" ></button>
-        <img class="forward" src="forward.svg" alt="The forward button" onclick={nextSong}/>
+        <img class="forward" src="/player_icons/forward.svg" alt="The forward button" onclick={nextSong}/>
       </div>
     </div>
     
@@ -214,20 +218,20 @@
       <button class="loop" type="button">
       <!--here make the circles for these svg-->
         {#if looping === false}
-        <img class="icon-loop" src="loop.svg" alt="Loop Audio" onclick={loopSong}/>
+        <img class="icon-loop" src="/player_icons/loop.svg" alt="Loop Audio" onclick={loopSong}/>
         {:else}
-        <img class="icon-loop-bold" src="loop.svg" alt="Loop Audio" onclick={loopSong}/>
+        <img class="icon-loop-bold" src="/player_icons/loop.svg" alt="Loop Audio" onclick={loopSong}/>
         {/if}
         
       </button>
       <button class="bookmark">
-          <img class="icon-bookmark" src="bookmark.svg" alt="bookmark the song"/>
+          <img class="icon-bookmark" src="/player_icons/bookmark.svg" alt="bookmark the song"/>
       </button>
     </div>
     <div class="controls">
-      <img class="library" src="library.svg" alt="open the song library"/>
-      <img class="icon-search" src="search.svg" alt="Search for songs" onclick={searchSong}/>
-      <img class="icon-settings" src="settings.svg" alt="open the settings"/>
+      <img class="library" src="/player_icons/library.svg" alt="open the song library" onclick={navigate_library} />
+      <img class="icon-search" src="/player_icons/search.svg" alt="Search for songs" onclick={searchSong}/>
+      <img class="icon-settings" src="/player_icons/settings.svg" alt="open the settings"/>
     </div>
   </div>
 </main>  
