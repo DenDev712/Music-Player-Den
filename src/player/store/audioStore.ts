@@ -1,11 +1,12 @@
-import { writable } from 'svelte/store';
-import type { Song } from '../utils/audioControls';
 
-//for the songs selection
-export const currentSongIndex = 0;
-export const isPlaying = writable(false);
-export const progress = writable(0);
-export const songs = writable<Song[]>([
+export interface Song {
+  src: string;
+  artist: string;
+  title: string;
+  cover: string;
+  duration?: number;
+}
+export const songs :Song[] =[
   {
     src: 'src/songs/song2/the-smiths.mp3',
     artist: 'The Smiths',
@@ -18,4 +19,4 @@ export const songs = writable<Song[]>([
     title: 'A Heart Like Hers',
     cover: 'src/songs/song1/macdemarco.jpg',
   }
-]);
+];

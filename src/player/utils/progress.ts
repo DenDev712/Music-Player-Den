@@ -1,9 +1,13 @@
-export function updateProgress(audioElement: HTMLAudioElement, setProgress: (progress: number) => void) {
+import { audioElement } from "./audioControls";
+export let progress: number = 0;
+export let duration: number = 0;
+export let currentTime: number = 0;
+export function updateProgress() {
     if (!audioElement) return;
   
     const currentTime = audioElement.currentTime;
-    const duration = audioElement.duration;
-    setProgress((currentTime / duration) * 100);
+    duration = audioElement.duration;
+    progress = ((currentTime / duration) * 100);
   }
   
   export function formatTime(seconds: number): string {
