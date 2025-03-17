@@ -38,7 +38,7 @@
     
     <div class="time-container">
       <div class="progress-bar" onmousedown={handleMouseDown}>
-        <div class="fill_bar" style={`width: ${progress}%`}/>
+        <div class="fill_bar" style={`width: ${$progress}%`}/>
       </div>
       <div class="time">
         <span>{formatTime($currentTime)}</span>
