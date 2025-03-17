@@ -19,10 +19,14 @@
       <div class="plus2"></div>
       <img class="x" src="x0.svg" />
       <img class="download" src="download0.svg" />
-      <div class="frame-20">
-        <div class="rectangle-13"></div>
-        <img class="arrow-left" src="arrow-left0.svg" />
-      </div>
+      <a href = "/">
+        <div class="back_button" >
+          <div class="back_button_bg" ></div>
+          <img class="back_button_icon" src="/library_icons/back_button.svg/" alt="back button"  />
+        </div>
+      </a>
+  
+      
     </div>
     <div class="collection-buttons">
       <div class="create-collect-button">
@@ -195,7 +199,7 @@
       top: 9px;
       overflow: visible;
     }
-    .frame-20 {
+    .back_button {
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -204,7 +208,7 @@
       left: 490px;
       top: 7px;
     }
-    .rectangle-13 {
+    .back_button_bg {
       background: #d9d9d9;
       border-radius: 5px;
       flex-shrink: 0;
@@ -212,8 +216,8 @@
       height: 20px;
       position: relative;
     }
-    .arrow-left {
-      margin: 0 0 0 -31px;
+    .back_button_icon {
+      margin: 0 0 0 -21px;
       display: flex;
       flex-direction: column;
       gap: 0px;
