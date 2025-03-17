@@ -21,7 +21,7 @@ export function handleMouseDown(event: MouseEvent) {
       const x = event.clientX - rect; 
       let percentage = x / progressBar.offsetWidth; 
       //the current time updated based on the progress and duration so 50% of the bar will go to the half of the song
-      audioElement.currentTime = percentage * duration;
+      audioElement.currentTime = percentage * get(duration);
     };
 
     //handling mouse move

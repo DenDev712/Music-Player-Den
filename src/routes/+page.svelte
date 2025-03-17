@@ -41,9 +41,9 @@
         <div class="fill_bar" style={`width: ${progress}%`}/>
       </div>
       <div class="time">
-        <span>{formatTime(currentTime)}</span>
+        <span>{formatTime($currentTime)}</span>
         <span>/</span>
-        <span>{formatTime(duration)}</span>
+        <span>{formatTime($duration)}</span>
       </div>
     </div>
     

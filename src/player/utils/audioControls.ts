@@ -15,7 +15,6 @@ export const isPlaying = writable(false);
 export let looping = writable(false);
 
 
-
 export function loadSong() {
   if (audioElement) {
     audioElement.pause();
@@ -80,6 +79,5 @@ export function previousSong() {
 
 //for the loop button
 export function loopSong(){
-  let loopState = get(looping);
-  looping.set(!loopState);
+  looping.set(!get(looping));
 }
