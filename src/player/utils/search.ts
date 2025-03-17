@@ -1,5 +1,6 @@
 import {songs} from '../store/audioStore';
-import { SongIndex , loadSong, audioElement,isPlaying} from './audioControls';
+import {get} from 'svelte/store'
+import { currentSongIndex, loadSong, audioElement,isPlaying, currentSong} from './audioControls';
 
 
 export function searchSong() {
@@ -14,8 +15,9 @@ export function searchSong() {
     );
 
     if(foundIndex !== -1) {
-      SongIndex.currentSongIndex = foundIndex;
-      //currentSong = songs[currentSongIndex];
+
+      currentSongIndex.set(foundIndex);
+      currentSong.set(songs[get(currentSongIndex)]);
       loadSong();
       audioElement.play();
       isPlaying.set(true);

@@ -1,3 +1,4 @@
+
 import { songs} from '../store/audioStore';
 import {  updateProgress} from './progress';
 import { writable, get } from 'svelte/store';
@@ -5,8 +6,9 @@ import { writable, get } from 'svelte/store';
 //the audio itself
 export let audioElement: HTMLAudioElement;
 //for the song selection
-export const SongIndex = {currentSongIndex: 0}
-export const currentSong= writable(songs[SongIndex.currentSongIndex]);
+export let currentSongIndex = writable(0);
+export let SongIndex = get(currentSongIndex);
+export const currentSong= writable(songs[SongIndex]);
 //for the play button whether the audio is playing or not
 export const isPlaying = writable(false);
 //for the looping function
@@ -24,7 +26,7 @@ export function loadSong() {
   
   audioElement = new Audio(get(currentSong).src);
   audioElement.addEventListener('loadedmetadata', () => {
-    songs[SongIndex.currentSongIndex].duration = audioElement.duration;
+    songs[SongIndex].duration = audioElement.duration;
   });
   
   audioElement.addEventListener('timeupdate',updateProgress);
@@ -54,8 +56,8 @@ export function togglePlay() {
 export function nextSong(){
   looping.set(false);
   const wasPlaying = get(isPlaying);
-  SongIndex.currentSongIndex = (SongIndex.currentSongIndex + 1) % songs.length;
-  currentSong.set(songs[SongIndex.currentSongIndex]);
+  SongIndex = (SongIndex+ 1) % songs.length;
+  currentSong.set(songs[SongIndex]);
   loadSong();
   
   if(!wasPlaying){
@@ -66,8 +68,8 @@ export function nextSong(){
 //for the previous button
 export function previousSong() {
   const wasPlaying = get(isPlaying); 
-  SongIndex.currentSongIndex = (SongIndex.currentSongIndex - 1 + songs.length) % songs.length;
-  currentSong.set(songs[SongIndex.currentSongIndex]);
+  SongIndex = (SongIndex - 1 + songs.length) % songs.length;
+  currentSong.set(songs[SongIndex]);
   loadSong();
 
   if(!wasPlaying){
