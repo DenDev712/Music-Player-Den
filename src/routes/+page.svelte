@@ -17,14 +17,14 @@
 
 <main class="container">
   <div class="playerContainer" id="unselectable">
-    <img class="bgImg" src={currentSong.cover} alt="The Smiths Album Cover"/>
+    <img class="bgImg" src={$currentSong.cover} alt="The Smiths Album Cover"/>
     <div class="play-buttons">
       <div class="circles">
         <button class="backwardsButton" type="button" aria-label="Skip backwards" ></button>
         <img class="reverse" src="/player_icons/forward.svg" alt="The reverse button" onclick={previousSong}/>
         <button class="playButton" type="button" onclick={togglePlay}>
           <div class="play">
-            {#if isPlaying}
+            {#if $isPlaying}
               <img id="pause"src="/player_icons/pause.svg" alt="the pause button"/>
             {:else}
               <img src="/player_icons/play.svg" alt="the play button"/>
@@ -50,20 +50,20 @@
 
 
     <div class="songTitle">
-      {currentSong.title}
+      {$currentSong.title}
     </div>
     <div class="artist">
-      {currentSong.artist}
+      {$currentSong.artist}
     </div>
-    <img class="cover" src="{currentSong.cover}" alt="Song Album Cover"/>
+    <img class="cover" src="{$currentSong.cover}" alt="Song Album Cover"/>
     
     <div class = "otherControls">
       <button class="loop" type="button">
       <!--here make the circles for these svg-->
-        {#if looping === false}
-        <img class="icon-loop" src="/player_icons/loop.svg" alt="Loop Audio" onclick={loopSong}/>
-        {:else}
+        {#if $looping}
         <img class="icon-loop-bold" src="/player_icons/loop.svg" alt="Loop Audio" onclick={loopSong}/>
+        {:else}
+        <img class="icon-loop" src="/player_icons/loop.svg" alt="Loop Audio" onclick={loopSong}/>
         {/if}
         
       </button>

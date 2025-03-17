@@ -1,10 +1,19 @@
 import { audioElement } from "./audioControls";
 import {duration} from "./progress"
+import {get} from 'svelte/store'
 import { isPlaying} from "./audioControls";
 export function handleMouseDown(event: MouseEvent) {
+    if(!audioElement) return;
     const progressBar = event.currentTarget as HTMLElement;
-    //when the user moves the progress bar the music will pause until the user lets go 
-    audioElement.pause(); 
+    const playingState = get(isPlaying);
+
+    if (playingState){
+      //when the user moves the progress bar the music will pause until the user lets go 
+      audioElement.pause();
+    }
+
+    
+    
     const seek = (event: MouseEvent) => {
       //rect is the left of the viewport 
       const rect = progressBar.getBoundingClientRect().left;
@@ -24,10 +33,12 @@ export function handleMouseDown(event: MouseEvent) {
     const handleMouseUp = () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
-      //so when the user goes mouseup the audio plays
-      audioElement.play();
-      //so when the paused icon changes to play icon when the user moves the progress bar
-      isPlaying.set(true);
+      if(playingState){
+        audioElement.play().catch((error) => {
+          console.error('Playback failed:', error);
+          isPlaying.set(false);
+        });
+      }
     };
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);

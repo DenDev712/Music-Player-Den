@@ -12,13 +12,13 @@ export function searchSong() {
       song.title.toLowerCase().includes(normalizedSearch) ||
       song.artist.toLowerCase().includes(normalizedSearch)
     );
-    SongIndex.currentSongIndex = foundIndex;
+
     if(foundIndex !== -1) {
       SongIndex.currentSongIndex = foundIndex;
       //currentSong = songs[currentSongIndex];
       loadSong();
       audioElement.play();
-      isPlaying.set(false);
+      isPlaying.set(true);
     }else{
       alert("Song not found")
     }

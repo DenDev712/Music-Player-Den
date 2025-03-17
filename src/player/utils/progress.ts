@@ -1,7 +1,9 @@
 import { audioElement } from "./audioControls";
+
 export let progress: number = 0;
-export let duration: number = 0;
+export let duration = 0;
 export let currentTime: number = 0;
+
 export function updateProgress() {
     if (!audioElement) return;
   

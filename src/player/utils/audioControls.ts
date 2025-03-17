@@ -1,16 +1,17 @@
 import { songs} from '../store/audioStore';
-import { updateProgress } from './progress';
-import { writable } from 'svelte/store';
+import {  updateProgress} from './progress';
+import { writable, get } from 'svelte/store';
 
 //the audio itself
 export let audioElement: HTMLAudioElement;
 //for the song selection
 export const SongIndex = {currentSongIndex: 0}
-export let currentSong= songs[SongIndex.currentSongIndex];
+export const currentSong= writable(songs[SongIndex.currentSongIndex]);
 //for the play button whether the audio is playing or not
-export let isPlaying = writable(false);
+export const isPlaying = writable(false);
 //for the looping function
-export let looping: boolean = false;
+export let looping = writable(false);
+
 
 
 export function loadSong() {
@@ -21,36 +22,40 @@ export function loadSong() {
     audioElement.removeEventListener('ended', nextSong);
   }
   
-  audioElement = new Audio(currentSong.src);
+  audioElement = new Audio(get(currentSong).src);
   audioElement.addEventListener('loadedmetadata', () => {
     songs[SongIndex.currentSongIndex].duration = audioElement.duration;
   });
   
   audioElement.addEventListener('timeupdate',updateProgress);
+  audioElement.addEventListener('play', () => isPlaying.set(true));
+  
+  audioElement.addEventListener('error', () => isPlaying.set(false));
   audioElement.addEventListener('ended', () => {
-    if(looping){
+    if(get(looping) === true){
       audioElement.play();
     }else{
-      nextSong;
+      nextSong();
     }
   });
   
-  if (isPlaying) audioElement.play();
+  if (get(isPlaying)) audioElement.play();
 }
 
 //for the play / pause button
 export function togglePlay() {
   if(!audioElement) return;
-  isPlaying ? audioElement.pause() : audioElement.play();
-  isPlaying.set(!isPlaying);
+  const playing =  get(isPlaying);
+  playing ? audioElement.pause() : audioElement.play();
+  isPlaying.set(!playing);
 } 
 
 //for the next button
 export function nextSong(){
-  looping = false;
-  const wasPlaying = isPlaying;
+  looping.set(false);
+  const wasPlaying = get(isPlaying);
   SongIndex.currentSongIndex = (SongIndex.currentSongIndex + 1) % songs.length;
-  currentSong = songs[SongIndex.currentSongIndex];
+  currentSong.set(songs[SongIndex.currentSongIndex]);
   loadSong();
   
   if(!wasPlaying){
@@ -60,9 +65,9 @@ export function nextSong(){
 }
 //for the previous button
 export function previousSong() {
-  const wasPlaying = isPlaying; 
+  const wasPlaying = get(isPlaying); 
   SongIndex.currentSongIndex = (SongIndex.currentSongIndex - 1 + songs.length) % songs.length;
-  currentSong = songs[SongIndex.currentSongIndex];
+  currentSong.set(songs[SongIndex.currentSongIndex]);
   loadSong();
 
   if(!wasPlaying){
@@ -73,5 +78,6 @@ export function previousSong() {
 
 //for the loop button
 export function loopSong(){
-  looping = !looping;
+  let loopState = get(looping);
+  looping.set(!loopState);
 }
