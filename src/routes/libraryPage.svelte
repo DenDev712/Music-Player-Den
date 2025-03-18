@@ -71,6 +71,7 @@
       background: #210038;
       border-radius: 20px;
       height: 300px;
+      width: 600px;
       position: relative;
       overflow: hidden;
     }
@@ -205,7 +206,7 @@
       align-items: center;
       justify-content: flex-start;
       position: absolute;
-      left: 490px;
+      left: 530px;
       top: 7px;
     }
     .back_button_bg {

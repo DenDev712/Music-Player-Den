@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { goto } from '$app/navigation';
   import {currentSong, loadSong, looping, loopSong, nextSong,isPlaying, previousSong, togglePlay} from '../player/utils/audioControls';
   import { handleMouseDown } from '../player/utils/progressBar';
   import { currentTime, duration, formatTime, progress } from '../player/utils/progress';
@@ -9,10 +8,6 @@
   onMount(() => {
     loadSong();
   });
-
-  function navigate_library(){
-    goto('src/routes/libraryPage.svelte')
-  }
 </script>
 
 <main class="container">
@@ -72,7 +67,9 @@
       </button>
     </div>
     <div class="controls">
-      <img class="library" src="/player_icons/library.svg" alt="open the song library" onclick={navigate_library} />
+      <a href="src/routes/libraryPage.svelte">
+        <img class="library" src="/player_icons/library.svg" alt="open the song library"/>
+      </a>
       <img class="icon-search" src="/player_icons/search.svg" alt="Search for songs" onclick={searchSong}/>
       <img class="icon-settings" src="/player_icons/settings.svg" alt="open the settings"/>
     </div>
