@@ -1,41 +1,46 @@
-<script lang="ts"> 
+<script lang="ts">
+    import { searchSong } from "../player/utils/search";
+
+ 
 
 </script>
 
 <main class="library-container">
-<div class="frame-18">
+<div class="library">
     <div class="page-title">
-      <div class="line-1"></div>
-      <img class="line-5" src="line-50.svg" />
-      <div class="frame-19">
-        <div class="rectangle-10"></div>
-        <div class="rectangle-11"></div>
-        <div class="rectangle-14"></div>
-        <div class="rectangle-12"></div>
+      <div class="divider"></div>
+      
+      <div class="util_buttons">
+        <div class="search_button"></div>
+        <div class="add_button"></div>
+        <div class="remove_button"></div>
+        <div class="download_button"></div>
       </div>
-      <div class="library">LIBRARY</div>
-      <img class="magnifier" src="magnifier0.svg" />
-      <img class="plus" src="plus0.svg" />
-      <div class="plus2"></div>
-      <img class="x" src="x0.svg" />
-      <img class="download" src="download0.svg" />
+
+      <div id="button_icons">
+        <div class="page_name" id="unselectable">LIBRARY</div>
+        <img class="magnifier_icon" src="/player_icons/search.svg" alt="search function"/>
+        <img class="add_icon" src="/library_icons/add.svg" alt="add collection"/>
+        <img class="remove_icon" src="/library_icons/add.svg" alt="remove collection or song"/>
+        <img class="download_icon" src="/library_icons/download.svg" alt="download song" />
+      </div>
+
       <a href = "/">
         <div class="back_button" >
           <div class="back_button_bg" ></div>
           <img class="back_button_icon" src="/library_icons/back_button.svg/" alt="back button"  />
         </div>
       </a>
-  
-      
     </div>
-    <div class="collection-buttons">
-      <div class="create-collect-button">
-        <div class="rectangle-132"></div>
-        <div class="create-new-collection">Create new Collection</div>
+
+    <div class="collection_buttons">
+      <div class="create_collection_button">
+        <div class="create_button_bg"></div>
+        <div class="create_new_collection" id="unselectable">Create new Collection</div>
       </div>
-      <div class="rename-collect-button">
-        <div class="rectangle-142"></div>
-        <div class="rename-collection">Rename Collection</div>
+      <div class="rename_collection_button">
+        <div class="rename_button_bg"></div>
+        <div class="rename_collection" id="unselectable">Rename Collection</div>
       </div>
     </div>
     <div class="library-section">
@@ -63,17 +68,25 @@
   </div>
 </main>
   
-<style>.frame-18,
-    .frame-18 * {
+<style>.library,
+    .library * {
       box-sizing: border-box;
     }
-    .frame-18 {
+    .library {
       background: #210038;
       border-radius: 20px;
       height: 300px;
       width: 600px;
       position: relative;
       overflow: hidden;
+    }
+    #unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     }
     .page-title {
       width: 83px;
@@ -82,7 +95,7 @@
       left: 17px;
       top: 7px;
     }
-    .line-1 {
+    .divider {
       margin-top: -1px;
       border-style: solid;
       border-color: #ffffff;
@@ -93,15 +106,7 @@
       left: 0px;
       top: 37px;
     }
-    .line-5 {
-      width: 550px;
-      height: 0px;
-      position: absolute;
-      left: 0px;
-      top: 279.5px;
-      overflow: visible;
-    }
-    .frame-19 {
+    .util_buttons{
       display: flex;
       flex-direction: row;
       gap: 13px;
@@ -111,7 +116,7 @@
       left: 89px;
       top: 8px;
     }
-    .rectangle-10 {
+    .search_button{
       background: #d9d9d9;
       border-radius: 5px;
       flex-shrink: 0;
@@ -119,7 +124,7 @@
       height: 20px;
       position: relative;
     }
-    .rectangle-11 {
+    .add_button{
       background: #d9d9d9;
       border-radius: 5px;
       flex-shrink: 0;
@@ -127,7 +132,7 @@
       height: 20px;
       position: relative;
     }
-    .rectangle-14 {
+    .remove_button {
       background: #d9d9d9;
       border-radius: 5px;
       flex-shrink: 0;
@@ -135,7 +140,7 @@
       height: 20px;
       position: relative;
     }
-    .rectangle-12 {
+    .download_button {
       background: #d9d9d9;
       border-radius: 5px;
       flex-shrink: 0;
@@ -143,7 +148,7 @@
       height: 20px;
       position: relative;
     }
-    .library {
+    .page_name {
       color: #ffffff;
       text-align: left;
       font-family: "Inder-Regular", sans-serif;
@@ -160,7 +165,7 @@
       align-items: center;
       justify-content: flex-start;
     }
-    .magnifier {
+    .magnifier_icon {
       width: 15px;
       height: 15px;
       position: absolute;
@@ -168,7 +173,7 @@
       top: 10px;
       overflow: visible;
     }
-    .plus {
+    .add_icon {
       width: 24px;
       height: 24px;
       position: absolute;
@@ -176,15 +181,9 @@
       top: 6px;
       overflow: visible;
     }
-    .plus2 {
-      width: 24px;
-      height: 24px;
-      position: absolute;
-      left: 152px;
-      top: 10px;
-      overflow: hidden;
-    }
-    .x {
+  
+    .remove_icon{
+      transform: rotate(45deg);
       width: 24px;
       height: 24px;
       position: absolute;
@@ -192,7 +191,7 @@
       top: 6px;
       overflow: visible;
     }
-    .download {
+    .download_icon {
       width: 18px;
       height: 18px;
       position: absolute;
@@ -230,7 +229,7 @@
       position: relative;
       overflow: visible;
     }
-    .collection-buttons {
+    .collection_buttons {
       display: flex;
       flex-direction: row;
       gap: 2px;
@@ -240,13 +239,13 @@
       left: 17px;
       top: 51px;
     }
-    .create-collect-button {
+    .create_collection_button {
       flex-shrink: 0;
       width: 128px;
       height: 18px;
       position: relative;
     }
-    .rectangle-132 {
+    .create_button_bg{
       background: #d9d9d9;
       border-radius: 5px;
       width: 94.53%;
@@ -257,7 +256,7 @@
       bottom: 5.56%;
       top: 0%;
     }
-    .create-new-collection {
+    .create_new_collection {
       color: #000000;
       text-align: left;
       font-family: "Inder-Regular", sans-serif;
@@ -276,13 +275,13 @@
       align-items: center;
       justify-content: flex-start;
     }
-    .rename-collect-button {
+    .rename_collection_button {
       flex-shrink: 0;
       width: 109px;
       height: 17px;
       position: relative;
     }
-    .rectangle-142 {
+    .rename_button_bg {
       background: #d9d9d9;
       border-radius: 5px;
       width: 95.41%;
@@ -293,7 +292,7 @@
       bottom: 0%;
       top: 0%;
     }
-    .rename-collection {
+    .rename_collection {
       color: #000000;
       text-align: left;
       font-family: "Inder-Regular", sans-serif;
