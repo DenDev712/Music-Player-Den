@@ -19,4 +19,5 @@ export const songs :Song[] =[
     title: 'A Heart Like Hers',
     cover: 'src/songs/song1/macdemarco.jpg',
   }
+  
 ];

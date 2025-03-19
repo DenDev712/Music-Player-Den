@@ -1,7 +1,4 @@
 <script lang="ts">
-    import { searchSong } from "../player/utils/search";
-
- 
 
 </script>
 
@@ -11,7 +8,7 @@
       <div class="divider"></div>
       
       <div class="util_buttons">
-        <div class="search_button"></div>
+        <div class="search_button" ></div>
         <div class="add_button"></div>
         <div class="remove_button"></div>
         <div class="download_button"></div>
@@ -19,7 +16,7 @@
 
       <div id="button_icons">
         <div class="page_name" id="unselectable">LIBRARY</div>
-        <img class="magnifier_icon" src="/player_icons/search.svg" alt="search function"/>
+        <img class="magnifier_icon" src="/player_icons/search.svg" alt="search function" />
         <img class="add_icon" src="/library_icons/add.svg" alt="add collection"/>
         <img class="remove_icon" src="/library_icons/add.svg" alt="remove collection or song"/>
         <img class="download_icon" src="/library_icons/download.svg" alt="download song" />
@@ -46,10 +43,10 @@
     <div class="library-section">
       <img class="line-2" src="line-20.svg" />
       <div class="song-1">
-        <img class="thesmiths" src="thesmiths0.png" />
-        <div class="bigmouth-strikes-again">Bigmouth Strikes Again</div>
-        <div class="the-smiths">The Smiths</div>
-        <div class="_3-11">3:11</div>
+        <img class="song_cover" src="thesmiths0.png" alt="song cover" />
+        <div class="song_title">Bigmouth Strikes Again</div>
+        <div class="song_artist">The Smiths</div>
+        <div class="song_duration">3:11</div>
       </div>
       <img class="line-3" src="line-30.svg" />
       <div class="song-2">
@@ -333,7 +330,7 @@
       height: 50px;
       position: relative;
     }
-    .thesmiths {
+    .song_cover {
       border-radius: 10px;
       width: 26.74%;
       height: 100%;
@@ -344,7 +341,7 @@
       top: 0%;
       object-fit: cover;
     }
-    .bigmouth-strikes-again {
+    .song_title {
       color: #ffffff;
       text-align: left;
       font-family: "Inder-Regular", sans-serif;
@@ -361,7 +358,7 @@
       align-items: center;
       justify-content: flex-start;
     }
-    .the-smiths {
+    .song_artist{
       color: #ffffff;
       text-align: left;
       font-family: "Inder-Regular", sans-serif;
@@ -378,7 +375,7 @@
       align-items: center;
       justify-content: flex-start;
     }
-    ._3-11 {
+    .song_duration {
       color: #ffffff;
       text-align: left;
       font-family: "Inder-Regular", sans-serif;

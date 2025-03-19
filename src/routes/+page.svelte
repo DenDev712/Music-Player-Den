@@ -195,7 +195,7 @@
   height: auto;
   position: absolute;
   left: 265px;
-  top: 9px;
+  top: 12px;
   overflow: visible;
 }
 .reverse {
@@ -203,8 +203,8 @@
   height:auto;  
   position: absolute;
   gap:10px;
-  top:9px;
-  left:auto;
+  top:12px;
+  left:12px;
   overflow: visible;
   rotate: 180deg;
 }
