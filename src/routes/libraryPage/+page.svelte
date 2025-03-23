@@ -1,5 +1,17 @@
+<!DOCTYPE html>
 <script lang="ts">
+    //import { collection_name } from "../../library/create_collection";
 
+    import { onMount } from 'svelte';
+  function collection_name() {
+    //need this name so we can use it on rust for the create_dir path name
+    let name= prompt("Enter the new collection name");
+    return name;
+  }
+
+  onMount(() => {
+  
+  });
 </script>
 
 <main class="library-container">
@@ -8,7 +20,7 @@
       <div class="divider"></div>
       
       <div class="util_buttons">
-        <div class="search_button" ></div>
+        <div class="search_button"></div>
         <div class="add_button"></div>
         <div class="remove_button"></div>
         <div class="download_button"></div>
@@ -31,10 +43,9 @@
     </div>
 
     <div class="collection_buttons">
-      <div class="create_collection_button">
-        <div class="create_button_bg"></div>
-        <div class="create_new_collection" id="unselectable">Create new Collection</div>
-      </div>
+      <button class="create_collection_button" on:click={collection_name}>
+      Create New Collection
+      </button>
       <div class="rename_collection_button">
         <div class="rename_button_bg"></div>
         <div class="rename_collection" id="unselectable">Rename Collection</div>
@@ -75,10 +86,9 @@
       height: 300px;
       width: 600px;
       position: relative;
-      overflow: hidden;
+      
     }
     #unselectable {
-    -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -168,7 +178,7 @@
       position: absolute;
       left: 91px;
       top: 10px;
-      overflow: visible;
+     
     }
     .add_icon {
       width: 24px;
@@ -176,7 +186,7 @@
       position: absolute;
       left: 120px;
       top: 6px;
-      overflow: visible;
+
     }
   
     .remove_icon{
@@ -186,7 +196,7 @@
       position: absolute;
       left: 153px;
       top: 6px;
-      overflow: visible;
+  
     }
     .download_icon {
       width: 18px;
@@ -194,7 +204,7 @@
       position: absolute;
       left: 189px;
       top: 9px;
-      overflow: visible;
+  
     }
     .back_button {
       display: flex;
@@ -224,9 +234,9 @@
       width: 24px;
       height: auto;
       position: relative;
-      overflow: visible;
+   
     }
-    .collection_buttons {
+  .collection_buttons {
       display: flex;
       flex-direction: row;
       gap: 2px;
@@ -237,41 +247,18 @@
       top: 51px;
     }
     .create_collection_button {
+      z-index: 1;
       flex-shrink: 0;
       width: 128px;
       height: 18px;
-      position: relative;
-    }
-    .create_button_bg{
-      background: #d9d9d9;
-      border-radius: 5px;
-      width: 94.53%;
-      height: 94.44%;
-      position: absolute;
-      right: 5.47%;
-      left: 0%;
-      bottom: 5.56%;
-      top: 0%;
-    }
-    .create_new_collection {
       color: #000000;
-      text-align: left;
+      text-align: center;
       font-family: "Inder-Regular", sans-serif;
       font-size: 11px;
-      font-weight: 400;
-      position: absolute;
-      right: 0%;
-      left: 3.12%;
-      width: 96.88%;
-      bottom: 0%;
-      top: 0%;
-      height: 100%;
-      transform-origin: 0 0;
-      transform: rotate(0deg) scale(1, 1);
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
+      position: relative;
+     
     }
+   
     .rename_collection_button {
       flex-shrink: 0;
       width: 109px;
@@ -291,7 +278,7 @@
     }
     .rename_collection {
       color: #000000;
-      text-align: left;
+      text-align: center;
       font-family: "Inder-Regular", sans-serif;
       font-size: 11px;
       font-weight: 400;
@@ -322,7 +309,7 @@
       width: 550px;
       height: 0px;
       position: relative;
-      overflow: visible;
+      
     }
     .song-1 {
       flex-shrink: 0;
@@ -397,7 +384,7 @@
       width: 550px;
       height: 0px;
       position: relative;
-      overflow: visible;
+      
     }
     .song-2 {
       flex-shrink: 0;
@@ -472,7 +459,7 @@
       width: 550px;
       height: 0px;
       position: relative;
-      overflow: visible;
+ 
     }
     .collection-1 {
       flex-shrink: 0;

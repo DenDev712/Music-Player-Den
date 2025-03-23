@@ -8,6 +8,8 @@
   onMount(() => {
     loadSong();
   });
+
+ 
 </script>
 
 <main class="container">
@@ -30,7 +32,7 @@
         <img class="forward" src="/player_icons/forward.svg" alt="The forward button" onclick={nextSong}/>
       </div>
     </div>
-    
+   
     <div class="time-container">
       <div class="progress-bar" onmousedown={handleMouseDown}>
         <div class="fill_bar" style={`width: ${$progress}%`}/>
@@ -41,8 +43,6 @@
         <span>{formatTime($duration)}</span>
       </div>
     </div>
-    
-
 
     <div class="songTitle">
       {$currentSong.title}
@@ -67,7 +67,7 @@
       </button>
     </div>
     <div class="controls">
-      <a href="src/routes/libraryPage.svelte">
+      <a href="src/routes/libraryPage/+page.svelte">
         <img class="library" src="/player_icons/library.svg" alt="open the song library"/>
       </a>
       <img class="icon-search" src="/player_icons/search.svg" alt="Search for songs" onclick={searchSong}/>
@@ -81,11 +81,13 @@
 .container{
   height: 300px;
   width: 600px;
+  display:flex;
 }
 .playerContainer,
 .playerContainer * {
   box-sizing: border-box;
 }
+   
 #unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
