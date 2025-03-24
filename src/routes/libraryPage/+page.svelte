@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<script lang="ts">
-    //import { collection_name } from "../../library/create_collection";
 
-    import { onMount } from 'svelte';
+<script lang="ts">
   function collection_name() {
     //need this name so we can use it on rust for the create_dir path name
     let name= prompt("Enter the new collection name");
     return name;
   }
 
-  onMount(() => {
-  
-  });
 </script>
 
 <main class="library-container">
@@ -43,10 +37,10 @@
     </div>
 
     <div class="collection_buttons">
-      <button class="create_collection_button" on:click={collection_name}>
+      <button class="create_collection_button" on:click={() => collection_name()}>
       Create New Collection
       </button>
-      <div class="rename_collection_button">
+      <div class="rename_collection_button" >
         <div class="rename_button_bg"></div>
         <div class="rename_collection" id="unselectable">Rename Collection</div>
       </div>

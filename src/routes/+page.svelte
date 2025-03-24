@@ -4,6 +4,7 @@
   import { handleMouseDown } from '../player/utils/progressBar';
   import { currentTime, duration, formatTime, progress } from '../player/utils/progress';
   import { searchSong } from '../player/utils/search';
+  import { goto } from '$app/navigation';
   
   onMount(() => {
     loadSong();
@@ -67,9 +68,7 @@
       </button>
     </div>
     <div class="controls">
-      <a href="src/routes/libraryPage/+page.svelte">
-        <img class="library" src="/player_icons/library.svg" alt="open the song library"/>
-      </a>
+      <img class="library" src="/player_icons/library.svg" alt="open the song library" onclick={() => goto('/libraryPage')}/>
       <img class="icon-search" src="/player_icons/search.svg" alt="Search for songs" onclick={searchSong}/>
       <img class="icon-settings" src="/player_icons/settings.svg" alt="open the settings"/>
     </div>
