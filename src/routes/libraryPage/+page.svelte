@@ -1,9 +1,16 @@
 
 <script lang="ts">
-  function collection_name() {
+  import { invoke } from '@tauri-apps/api/core';
+  async function collection_name() {
     //need this name so we can use it on rust for the create_dir path name
-    let name= prompt("Enter the new collection name");
-    return name;
+    const collection_name : string | null= prompt("Enter the new collection name");
+    if(!collection_name)return;
+
+    try{
+      await invoke('create_song_directory', {name : collection_name});
+    }catch (err){
+      console.error('create song directory func not working', err);
+    }
   }
 
 </script>
