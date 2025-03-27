@@ -8,12 +8,8 @@
   "windows": [
     "main"
   ],
-  "capabilities": {
-    "default": [
-      "core:default",
-      "window:default",
-      "path:default",
-      "event:default"
-    ]
-  }
+  "permissions": [
+    "core:default",
+    "opener:default"
+  ]
 }
