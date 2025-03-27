@@ -26,3 +26,10 @@ pub fn create_song_directory(name: String) -> Result<PathBuf, String> {
     }
 }
 
+/*
+pub fn rename_directory(name: String) -> std::io::Result<()>{
+    fs::rename("a.txt", "b.txt")?;
+    Ok(())
+}
+
+ */

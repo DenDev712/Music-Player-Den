@@ -12,7 +12,11 @@
       console.error('create song directory func not working', err);
     }
   }
+/*
+  async function rename_collection() {
 
+  }
+*/
 </script>
 
 <main class="library-container">
@@ -47,10 +51,9 @@
       <button class="create_collection_button" on:click={() => collection_name()}>
       Create New Collection
       </button>
-      <div class="rename_collection_button" >
-        <div class="rename_button_bg"></div>
-        <div class="rename_collection" id="unselectable">Rename Collection</div>
-      </div>
+      <button class="rename_collection_button" on:click={() => rename_collection()}>
+        Rename Collection
+      </button>
     </div>
     <div class="library-section">
       <img class="line-2" src="line-20.svg" />
@@ -257,42 +260,18 @@
       font-family: "Inder-Regular", sans-serif;
       font-size: 11px;
       position: relative;
-     
     }
    
     .rename_collection_button {
+      z-index: 1;
       flex-shrink: 0;
-      width: 109px;
-      height: 17px;
-      position: relative;
-    }
-    .rename_button_bg {
-      background: #d9d9d9;
-      border-radius: 5px;
-      width: 95.41%;
-      height: 100%;
-      position: absolute;
-      right: 4.59%;
-      left: 0%;
-      bottom: 0%;
-      top: 0%;
-    }
-    .rename_collection {
+      width: 128px;
+      height: 18px;
       color: #000000;
       text-align: center;
       font-family: "Inder-Regular", sans-serif;
       font-size: 11px;
-      font-weight: 400;
-      position: absolute;
-      right: 0%;
-      left: 3.67%;
-      width: 96.33%;
-      bottom: 23.53%;
-      top: 23.53%;
-      height: 52.94%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
+      position: relative;
     }
     .library-section {
       display: flex;
