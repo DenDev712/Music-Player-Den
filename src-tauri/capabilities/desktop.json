@@ -1,0 +1,19 @@
+{
+  "identifier": "desktop-capability",
+  "platforms": [
+    "macOS",
+    "windows",
+    "linux"
+  ],
+  "windows": [
+    "main"
+  ],
+  "capabilities": {
+    "default": [
+      "core:default",
+      "window:default",
+      "path:default",
+      "event:default"
+    ]
+  }
+}
