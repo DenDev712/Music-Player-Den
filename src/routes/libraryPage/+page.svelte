@@ -45,7 +45,6 @@
       <div id="button_icons">
         <div class="page_name" id="unselectable">LIBRARY</div>
         <img class="magnifier_icon" src="/player_icons/search.svg" alt="search function" />
-        <img class="add_icon" src="/library_icons/add.svg" alt="add collection"/>
         <img class="remove_icon" src="/library_icons/add.svg" alt="remove collection or song"/>
         <img class="download_icon" src="/library_icons/download.svg" alt="download song" />
       </div>
@@ -146,14 +145,7 @@
       height: 20px;
       position: relative;
     }
-    .add_button{
-      background: #d9d9d9;
-      border-radius: 5px;
-      flex-shrink: 0;
-      width: 20px;
-      height: 20px;
-      position: relative;
-    }
+    
     .remove_button {
       background: #d9d9d9;
       border-radius: 5px;
@@ -195,15 +187,6 @@
       top: 10px;
      
     }
-    .add_icon {
-      width: 24px;
-      height: 24px;
-      position: absolute;
-      left: 120px;
-      top: 6px;
-
-    }
-  
     .remove_icon{
       transform: rotate(45deg);
       width: 24px;
