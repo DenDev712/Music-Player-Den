@@ -12,11 +12,10 @@
       console.error('create song directory func not working', err);
     }
   }
-/*
+
   async function rename_collection() {
 
   }
-*/
 </script>
 
 <main class="library-container">
