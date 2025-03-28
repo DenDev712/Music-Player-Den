@@ -130,7 +130,7 @@
     .util_buttons{
       display: flex;
       flex-direction: row;
-      gap: 13px;
+      gap: 5px;
       align-items: center;
       justify-content: flex-start;
       position: absolute;
@@ -145,7 +145,6 @@
       height: 20px;
       position: relative;
     }
-    
     .remove_button {
       background: #d9d9d9;
       border-radius: 5px;
@@ -153,6 +152,7 @@
       width: 20px;
       height: 20px;
       position: relative;
+      right: auto;
     }
     .download_button {
       background: #d9d9d9;
@@ -161,6 +161,7 @@
       width: 20px;
       height: 20px;
       position: relative;
+      left: 5px;
     }
     .page_name {
       color: #ffffff;
@@ -185,22 +186,20 @@
       position: absolute;
       left: 91px;
       top: 10px;
-     
     }
     .remove_icon{
       transform: rotate(45deg);
       width: 24px;
       height: 24px;
       position: absolute;
-      left: 153px;
+      left: 116.5px;
       top: 6px;
-  
     }
     .download_icon {
       width: 18px;
       height: 18px;
       position: absolute;
-      left: 189px;
+      left: 150px;
       top: 9px;
   
     }
