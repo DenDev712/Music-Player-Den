@@ -3,7 +3,7 @@
   import { invoke } from '@tauri-apps/api/core';
   async function collection_name() {
     //need this name so we can use it on rust for the create_dir path name
-    const collection_name : string | null= prompt("Enter the new collection name");
+    const collection_name : string | null= prompt("Enter the collection name");
     if(!collection_name)return;
 
     try{
@@ -14,7 +14,14 @@
   }
 
   async function rename_collection() {
+    const rename_name: string | null = prompt("Enter the new name");
+    if(!rename_name) return;
 
+    try{
+      await invoke('rename_song_directory', {name: rename_name});
+    }catch (err){
+      console.error('rename song directory func not working', err);
+    }
   }
 </script>
 

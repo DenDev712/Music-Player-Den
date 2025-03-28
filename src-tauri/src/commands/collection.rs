@@ -16,6 +16,7 @@ pub fn create_song_directory(name: String) -> Result<PathBuf, String> {
 }
 
 #[tauri::command(rename_all = "snake_case")]
+#[allow(dead_code)]
 pub fn rename_directory(name: String) -> Result<PathBuf, String>{
     let old_path = audio_path()?;
     let new_path = audio_name_path(name)?;
