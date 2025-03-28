@@ -17,11 +17,13 @@ pub fn create_song_directory(name: String) -> Result<PathBuf, String> {
 
 #[tauri::command(rename_all = "snake_case")]
 #[allow(dead_code)]
-pub fn rename_directory(name: String) -> Result<PathBuf, String>{
-    let old_path = audio_path()?;
+pub fn rename_directory(current_name: String, name: String) -> Result<PathBuf, String>{
+    //gets the path of the current collection
+    let current_path = audio_name_path(current_name)?;
+    //gets the new path 
     let new_path = audio_name_path(name)?;
 
-    fs::rename(&old_path, &new_path).map_err(|err| err.to_string())?;
+    fs::rename(current_path, &new_path).map_err(|err| err.to_string())?;
 
     Ok(new_path)
 }

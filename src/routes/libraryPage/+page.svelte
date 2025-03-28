@@ -8,17 +8,22 @@
 
     try{
       await invoke('create_song_directory', {name : collection_name});
+      alert(`Collection ${collection_name} created successfully!`);
     }catch (err){
       console.error('create song directory func not working', err);
     }
   }
 
   async function rename_collection() {
-    const rename_name: string | null = prompt("Enter the new name");
-    if(!rename_name) return;
+    const current_dir_name: string | null = prompt("Enter the current name of the collection to rename");
+    if(!current_dir_name) return;
+
+    const new_dir_name: string | null = prompt("Enter the new name");
+    if(!new_dir_name) return;
 
     try{
-      await invoke('rename_song_directory', {name: rename_name});
+      await invoke('rename_directory', {current_name: current_dir_name, name: new_dir_name});
+      alert(`Collection ${current_dir_name} renamed to ${new_dir_name} successfully!`);
     }catch (err){
       console.error('rename song directory func not working', err);
     }
