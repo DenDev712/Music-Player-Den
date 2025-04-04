@@ -27,7 +27,7 @@ pub fn rename_directory(current_name: String, name: String) -> Result<PathBuf, S
 
     Ok(new_path)
 }
-fn audio_path() -> Result<PathBuf, String>{ 
+pub fn audio_path() -> Result<PathBuf, String>{ 
     //gets the path to the user's song directory
     let path = dirs::audio_dir()
     .ok_or_else(|| "Could not get song directory path".to_string())?;

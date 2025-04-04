@@ -7,6 +7,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             commands::collection::create_song_directory,
             commands::collection::rename_directory,
+            commands::display_songs::read_audio_folder,
             ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

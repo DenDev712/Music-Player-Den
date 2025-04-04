@@ -11,10 +11,11 @@
   },
   "app": {
     "windows": [
+
       {
         "title": "music-player-den",
-        "width": 600,
-        "height": 300
+        "width": 640,
+        "height": 360
       }
     ],
     "security": {

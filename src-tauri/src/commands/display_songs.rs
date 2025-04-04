@@ -6,8 +6,7 @@ use std::fs::{File, create_dir_all};
 use std::io::Write;
 use std::path::PathBuf;
 use serde::Serialize;
-use tauri::command;
-
+use tauri;
 #[derive(Serialize)]
 struct SongInfo {
     path: String,
@@ -17,8 +16,8 @@ struct SongInfo {
     cover_path: Option<String>,
 }
 
-#[command]
-fn read_audio_folder(folder_path: String, cover_output_dir: String) -> Vec<SongInfo> {
+#[tauri::command(rename_all = "snake_case")]
+pub fn read_audio_folder(folder_path: String, cover_output_dir: String) -> Vec<SongInfo> {
     let mut songs = Vec::new();
 
     // Ensure the output directory for covers exists
@@ -37,7 +36,7 @@ fn read_audio_folder(folder_path: String, cover_output_dir: String) -> Vec<SongI
                 }
 
                 if let Ok(probed) = symphonia::default::get_probe().format(&hint, mss, &Default::default(), &MetadataOptions::default()) {
-                    let format = probed.format;
+                    let mut format = probed.format;
                     let metadata = format.metadata().current();
                     let title = metadata
                                     .and_then(|m| m.tags().iter().find(|t| t.key == "title").map(|t| t.value.to_string()))
