@@ -1,6 +1,8 @@
 
 <script lang="ts">
   import { invoke } from '@tauri-apps/api/core';
+  import { onMount } from 'svelte';
+  import {formatTime} from '../../player/utils/progress';
   async function collection_name() {
     //need this name so we can use it on rust for the create_dir path name
     const collection_name : string | null= prompt("Enter the collection name");
@@ -28,6 +30,26 @@
       console.error('rename song directory func not working', err);
     }
   }
+type SongInfo = {
+  path: string;
+  title: string | null;
+  artist: string | null;
+  duration: number | null;
+  cover_path: string | null;
+};
+
+let songs: SongInfo[] = [];
+onMount(async () => {
+  try {
+    songs = await invoke<SongInfo[]>("read_audio_folder");
+    console.log("songs:", songs);
+  } catch (err) {
+      console.error("Failed to load songs:", err);
+  }
+});
+  
+  
+  
 </script>
 
 <main class="library-container">
@@ -66,26 +88,16 @@
       </button>
     </div>
     <div class="library-section">
-      <img class="line-2" src="line-20.svg" />
-      <div class="song-1">
-        <img class="song_cover" src="thesmiths0.png" alt="song cover" />
-        <div class="song_title">Bigmouth Strikes Again</div>
-        <div class="song_artist">The Smiths</div>
-        <div class="song_duration">3:11</div>
+      {#each songs as song}
+      <div class="line-divider">
+      <div class="song">
+        <img class="song_cover" src={song.cover_path ?? "/src/library/library_covers/cover_placeholder.jpg"} alt="song cover" />
+        <div class="song_title">{song.title}</div>
+        <div class="song_artist">{song.artist}</div>
+        <div class="song_duration">{formatTime(song.duration ?? 0)}</div>
       </div>
-      <img class="line-3" src="line-30.svg" />
-      <div class="song-2">
-        <img class="macdemarco" src="macdemarco0.png" />
-        <div class="a-heart-like-hers">A Heart Like Hers</div>
-        <div class="mac-demarco">Mac Demarco</div>
-        <div class="_4-01">4:01</div>
       </div>
-      <img class="line-4" src="line-40.svg" />
-      <div class="collection-1">
-        <img class="tame-impala-1" src="tame-impala-10.png" />
-        <div class="bangerssssss">BANGERSSSSSS</div>
-        <div class="_20-songs">20 Songs</div>
-      </div>
+      {/each}
     </div>
   </div>
 </main>
@@ -277,14 +289,15 @@
       left: 17px;
       top: 76px;
     }
-    .line-2 {
+    .line-divider {
+      display: flex;
       flex-shrink: 0;
       width: 550px;
       height: 0px;
       position: relative;
       
     }
-    .song-1 {
+    .song {
       flex-shrink: 0;
       width: 187px;
       height: 50px;
@@ -352,138 +365,4 @@
       align-items: center;
       justify-content: flex-start;
     }
-    .line-3 {
-      flex-shrink: 0;
-      width: 550px;
-      height: 0px;
-      position: relative;
-      
-    }
-    .song-2 {
-      flex-shrink: 0;
-      width: 182px;
-      height: 50px;
-      position: relative;
-    }
-    .macdemarco {
-      border-radius: 10px;
-      width: 27.47%;
-      height: 100%;
-      position: absolute;
-      right: 72.53%;
-      left: 0%;
-      bottom: 0%;
-      top: 0%;
-      object-fit: cover;
-    }
-    .a-heart-like-hers {
-      color: #ffffff;
-      text-align: left;
-      font-family: "Inder-Regular", sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      position: absolute;
-      right: 0%;
-      left: 34.07%;
-      width: 65.93%;
-      bottom: 72%;
-      top: 0%;
-      height: 28%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .mac-demarco {
-      color: #ffffff;
-      text-align: left;
-      font-family: "Inder-Regular", sans-serif;
-      font-size: 10px;
-      font-weight: 400;
-      position: absolute;
-      right: 7.14%;
-      left: 34.07%;
-      width: 58.79%;
-      bottom: 34%;
-      top: 36%;
-      height: 30%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    ._4-01 {
-      color: #ffffff;
-      text-align: left;
-      font-family: "Inder-Regular", sans-serif;
-      font-size: 10px;
-      font-weight: 400;
-      position: absolute;
-      right: 34.62%;
-      left: 34.07%;
-      width: 31.32%;
-      bottom: 2%;
-      top: 78%;
-      height: 20%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .line-4 {
-      flex-shrink: 0;
-      width: 550px;
-      height: 0px;
-      position: relative;
- 
-    }
-    .collection-1 {
-      flex-shrink: 0;
-      width: 182px;
-      height: 50px;
-      position: relative;
-    }
-    .tame-impala-1 {
-      border-radius: 10px;
-      width: 27.47%;
-      height: 50px;
-      position: absolute;
-      right: 72.53%;
-      left: 0%;
-      top: 0px;
-      object-fit: cover;
-      aspect-ratio: 1;
-    }
-    .bangerssssss {
-      color: #ffffff;
-      text-align: left;
-      font-family: "Inder-Regular", sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      position: absolute;
-      right: 0%;
-      left: 34.07%;
-      width: 65.93%;
-      bottom: 66%;
-      top: 0%;
-      height: 34%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    ._20-songs {
-      color: #ffffff;
-      text-align: left;
-      font-family: "Inder-Regular", sans-serif;
-      font-size: 10px;
-      font-weight: 400;
-      position: absolute;
-      right: 30.77%;
-      left: 34.07%;
-      width: 35.16%;
-      bottom: 26%;
-      top: 48%;
-      height: 26%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    
 </style>  
