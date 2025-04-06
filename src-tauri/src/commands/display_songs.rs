@@ -7,8 +7,10 @@ use std::io::Write;
 use std::path::PathBuf;
 use serde::Serialize;
 use tauri;
+use crate::commands::collection::audio_path;
+
 #[derive(Serialize)]
-struct SongInfo {
+pub struct SongInfo {
     path: String,
     title: Option<String>,
     artist: Option<String>,
@@ -17,14 +19,17 @@ struct SongInfo {
 }
 
 #[tauri::command(rename_all = "snake_case")]
-pub fn read_audio_folder(folder_path: String, cover_output_dir: String) -> Vec<SongInfo> {
+#[allow(dead_code)]
+pub fn read_audio_folder() -> Vec<SongInfo> {
+    let audio_path = audio_path().unwrap();
+    let cover_output_dir = "covers";
     let mut songs = Vec::new();
 
     // Ensure the output directory for covers exists
     let cover_dir = PathBuf::from(&cover_output_dir);
     let _ = create_dir_all(&cover_dir);
      //iterating through the audio_path
-    for entry in WalkDir::new(&folder_path).into_iter().filter_map(|e| e.ok()) {
+    for entry in WalkDir::new(&audio_path).into_iter().filter_map(|e| e.ok()) {
         let path = entry.path();
         //checks the files extension
         if path.extension().map_or(false, |ext| ext == "mp3" || ext == "flac" || ext == "m4a") {
@@ -37,7 +42,10 @@ pub fn read_audio_folder(folder_path: String, cover_output_dir: String) -> Vec<S
 
                 if let Ok(probed) = symphonia::default::get_probe().format(&hint, mss, &Default::default(), &MetadataOptions::default()) {
                     let mut format = probed.format;
-                    let metadata = format.metadata().current();
+                    let duration = format.default_track().map(|track| track.codec_params.n_frames.map(|f| f / track.codec_params.sample_rate.unwrap_or(1) as u64));
+                    let format_metadata = format.metadata();
+                    let metadata_current = format_metadata.current();
+                    let metadata = &metadata_current;
                     let title = metadata
                                     .and_then(|m| m.tags().iter().find(|t| t.key == "title").map(|t| t.value.to_string()))
                                     .unwrap_or_else(|| "Unknown Title".to_string());
@@ -45,7 +53,6 @@ pub fn read_audio_folder(folder_path: String, cover_output_dir: String) -> Vec<S
                     let artist = metadata
                                     .and_then(|m| m.tags().iter().find(|t| t.key == "artist").map(|t| t.value.to_string()))
                                     .unwrap_or_else(|| "Unknown Artist".to_string());
-                    let duration = format.default_track().map(|track| track.codec_params.n_frames.map(|f| f / track.codec_params.sample_rate.unwrap_or(1) as u64));
                     
                     // Extract cover image
                     let mut cover_path = None;
