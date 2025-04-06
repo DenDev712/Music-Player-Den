@@ -89,13 +89,11 @@ onMount(async () => {
     </div>
     <div class="library-section">
       {#each songs as song}
-      <div class="line-divider">
       <div class="song">
         <img class="song_cover" src={song.cover_path ?? "/src/library/library_covers/cover_placeholder.jpg"} alt="song cover" />
         <div class="song_title">{song.title}</div>
         <div class="song_artist">{song.artist}</div>
         <div class="song_duration">{formatTime(song.duration ?? 0)}</div>
-      </div>
       </div>
       {/each}
     </div>
@@ -289,15 +287,9 @@ onMount(async () => {
       left: 17px;
       top: 76px;
     }
-    .line-divider {
-      display: flex;
-      flex-shrink: 0;
-      width: 550px;
-      height: 0px;
-      position: relative;
-      
-    }
     .song {
+      padding: 1rem 0;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
       flex-shrink: 0;
       width: 187px;
       height: 50px;
