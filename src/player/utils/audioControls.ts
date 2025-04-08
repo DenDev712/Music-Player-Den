@@ -1,21 +1,21 @@
-
 import { songs} from '../store/audioStore';
 import { updateProgress} from './progress';
-import { writable, get } from 'svelte/store';
+import { writable, get, derived } from 'svelte/store';
 
 //the audio itself
 export let audioElement: HTMLAudioElement;
 //for the song selection
 export let currentSongIndex = writable(0);
-export let SongIndex = get(currentSongIndex);
-export const currentSong= writable(songs[SongIndex]);
+export const currentSong = derived([songs, currentSongIndex], ([$songs, $currentSongIndex]) => $songs[$currentSongIndex]);
 //for the play button whether the audio is playing or not
 export const isPlaying = writable(false);
 //for the looping function
-export let looping = writable(false);
+export const looping = writable(false);
 
 
 export function loadSong() {
+  const song = get(currentSong);
+  if(!song) return;
   if (audioElement) {
     audioElement.pause();
     audioElement.currentTime = 0;
@@ -23,9 +23,9 @@ export function loadSong() {
     audioElement.removeEventListener('ended', nextSong);
   }
   
-  audioElement = new Audio(get(currentSong).src);
+  audioElement = new Audio(song.path);
   audioElement.addEventListener('loadedmetadata', () => {
-    songs[SongIndex].duration = audioElement.duration;
+    song.duration = audioElement.duration;
   });
   
   audioElement.addEventListener('timeupdate',updateProgress);
@@ -55,8 +55,7 @@ export function togglePlay() {
 export function nextSong(){
   looping.set(false);
   const wasPlaying = get(isPlaying);
-  SongIndex = (SongIndex+ 1) % songs.length;
-  currentSong.set(songs[SongIndex]);
+  currentSongIndex.update(i => (i + 1) % get(songs).length);
   loadSong();
   
   if(!wasPlaying){
@@ -67,8 +66,7 @@ export function nextSong(){
 //for the previous button
 export function previousSong() {
   const wasPlaying = get(isPlaying); 
-  SongIndex = (SongIndex - 1 + songs.length) % songs.length;
-  currentSong.set(songs[SongIndex]);
+  currentSongIndex.update(i => (i - 1) % get(songs).length);
   loadSong();
 
   if(!wasPlaying){

@@ -9,7 +9,7 @@ export function searchSong() {
     if(!searchTerm) return;
     const normalizedSearch = searchTerm.toLowerCase();
 
-    const foundIndex = songs.findIndex(song =>
+    const foundIndex = get(songs).findIndex(song =>
       song.title.toLowerCase().includes(normalizedSearch) ||
       song.artist.toLowerCase().includes(normalizedSearch)
     );
@@ -17,7 +17,6 @@ export function searchSong() {
     if(foundIndex !== -1) {
 
       currentSongIndex.set(foundIndex);
-      currentSong.set(songs[get(currentSongIndex)]);
       loadSong();
       audioElement.play();
       isPlaying.set(true);

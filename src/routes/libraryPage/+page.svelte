@@ -77,7 +77,7 @@
     <div class="library-section">
       {#each $songs as song}
       <div class="song">
-        <img class="song_cover" src={song.cover_path ?? "/src/library/library_covers/cover_placeholder.jpg"} alt="song cover" />
+        <img class="song_cover" src={song.cover ?? "/src/library/library_covers/cover_placeholder.jpg"} alt="song cover" />
         <div class="song_title">{song.title}</div>
         <div class="song_artist">{song.artist}</div>
         <div class="song_duration">{formatTime(song.duration ?? 0)}</div>

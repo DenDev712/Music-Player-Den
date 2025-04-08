@@ -3,10 +3,10 @@ import { writable } from 'svelte/store';
 
 export type SongInfo = {
   path: string;
-  title: string | null;
-  artist: string | null;
-  duration: number | null;
-  cover_path: string | null;
+  title: string;
+  artist: string;
+  duration?: number;
+  cover: string;
 };
 export const songs = writable<SongInfo[]>([]);
 export async function songsList(){
