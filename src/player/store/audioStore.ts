@@ -1,23 +1,19 @@
+import { invoke } from '@tauri-apps/api/core';
+import { writable } from 'svelte/store';
 
-export interface Song {
-  src: string;
-  artist: string;
-  title: string;
-  cover: string;
-  duration?: number;
-}
-export const songs :Song[] =[
-  {
-    src: 'src/songs/song2/the-smiths.mp3',
-    artist: 'The Smiths',
-    title: 'Bigmouth Strikes Again',
-    cover: 'src/songs/song2/thesmiths.jpg',
-  },
-  {
-    src: 'src/songs/song1/A Heart Like Hers.mp3',
-    artist: 'Mac Demarco',
-    title: 'A Heart Like Hers',
-    cover: 'src/songs/song1/macdemarco.jpg',
+export type SongInfo = {
+  path: string;
+  title: string | null;
+  artist: string | null;
+  duration: number | null;
+  cover_path: string | null;
+};
+export const songs = writable<SongInfo[]>([]);
+export async function songsList(){
+  try {
+    const result = await invoke<SongInfo[]>("read_audio_folder");
+    songs.set(result);
+  } catch (err) {
+      console.error("Failed to load songs:", err);
   }
-  
-];
+};

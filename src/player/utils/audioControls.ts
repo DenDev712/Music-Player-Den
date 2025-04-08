@@ -1,6 +1,6 @@
 
 import { songs} from '../store/audioStore';
-import {  updateProgress} from './progress';
+import { updateProgress} from './progress';
 import { writable, get } from 'svelte/store';
 
 //the audio itself

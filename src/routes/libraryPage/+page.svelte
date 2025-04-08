@@ -1,8 +1,14 @@
 
 <script lang="ts">
   import { invoke } from '@tauri-apps/api/core';
-  import { onMount } from 'svelte';
   import {formatTime} from '../../player/utils/progress';
+  import {onMount} from 'svelte';
+  import { songs, songsList } from '../../player/store/audioStore';
+  
+
+  onMount(() => {
+    songsList();
+  });
   async function collection_name() {
     //need this name so we can use it on rust for the create_dir path name
     const collection_name : string | null= prompt("Enter the collection name");
@@ -30,25 +36,6 @@
       console.error('rename song directory func not working', err);
     }
   }
-type SongInfo = {
-  path: string;
-  title: string | null;
-  artist: string | null;
-  duration: number | null;
-  cover_path: string | null;
-};
-
-let songs: SongInfo[] = [];
-onMount(async () => {
-  try {
-    songs = await invoke<SongInfo[]>("read_audio_folder");
-    console.log("songs:", songs);
-  } catch (err) {
-      console.error("Failed to load songs:", err);
-  }
-});
-  
-  
   
 </script>
 
@@ -88,7 +75,7 @@ onMount(async () => {
       </button>
     </div>
     <div class="library-section">
-      {#each songs as song}
+      {#each $songs as song}
       <div class="song">
         <img class="song_cover" src={song.cover_path ?? "/src/library/library_covers/cover_placeholder.jpg"} alt="song cover" />
         <div class="song_title">{song.title}</div>
@@ -288,7 +275,7 @@ onMount(async () => {
       top: 76px;
     }
     .song {
-      padding: 1rem 0;
+      padding: 1rem ;
       border-bottom: 2px solid rgba(255, 255, 255, 0.2);
       flex-shrink: 0;
       width: 187px;
