@@ -15,7 +15,7 @@ pub struct SongInfo {
     title: Option<String>,
     artist: Option<String>,
     duration: Option<u64>, 
-    cover_path: Option<String>,
+    cover: Option<String>,
 }
 
 #[tauri::command(rename_all = "snake_case")]
@@ -55,7 +55,7 @@ pub fn read_audio_folder() -> Vec<SongInfo> {
                                     .unwrap_or_else(|| "Unknown Artist".to_string());
                     
                     // Extract cover image
-                    let mut cover_path = None;
+                    let mut cover = None;
                     if let Some(meta) = metadata {
                         if let Some(picture) = meta.visuals().first() {
                             let cover_filename = format!(
@@ -65,7 +65,7 @@ pub fn read_audio_folder() -> Vec<SongInfo> {
                             let cover_filepath = cover_dir.join(&cover_filename);
                             if let Ok(mut file) = File::create(&cover_filepath) {
                                 let _ = file.write_all(&picture.data);
-                                cover_path = Some(cover_filepath.to_string_lossy().into());
+                                cover = Some(cover_filepath.to_string_lossy().into());
                             }
                         }
                     }
@@ -74,7 +74,7 @@ pub fn read_audio_folder() -> Vec<SongInfo> {
                         title: Some(title),
                         artist: Some(artist),
                         duration: duration.flatten(),
-                        cover_path,
+                        cover,
                     });
                 }
             }

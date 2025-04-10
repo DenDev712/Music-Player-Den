@@ -1,19 +1,23 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import {currentSong, loadSong, looping, loopSong, nextSong,isPlaying, previousSong, togglePlay} from '../player/utils/audioControls';
+  import { currentSong, loadSong, looping, loopSong, nextSong,isPlaying, previousSong, togglePlay} from '../player/utils/audioControls';
   import { handleMouseDown } from '../player/utils/progressBar';
   import { currentTime, duration, formatTime, progress } from '../player/utils/progress';
   import { searchSong } from '../player/utils/search';
   import { goto } from '$app/navigation';
+  import { songsList } from '../player/store/audioStore';
   
-  onMount(() => {
+  let songLoaded = false;
+  onMount(async() => {
+    await songsList();
     loadSong();
+    songLoaded = true;
   });
-
  
 </script>
 
 <main class="container">
+  {#if songLoaded && $currentSong}
   <div class="playerContainer" id="unselectable">
     <img class="bgImg" src={$currentSong.cover} alt="The Smiths Album Cover"/>
     <div class="play-buttons">
@@ -73,6 +77,11 @@
       <img class="icon-settings" src="/player_icons/settings.svg" alt="open the settings"/>
     </div>
   </div>
+  {:else}
+  <div class= "loading">
+    Loading Player... 
+  </div>
+  {/if}
 </main>  
 
 
@@ -132,7 +141,16 @@
   object-fit: cover;
   pointer-events: none;
 }
-
+.loading{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inder-Regular", sans-serif;
+  font-size: 32px;
+  color: #000000;
+  width: 600px;
+  height: 300px;
+}
 .play-buttons {
   padding: 6px 0px 6px 0px;
   display: flex;

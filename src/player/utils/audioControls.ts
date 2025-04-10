@@ -1,4 +1,4 @@
-import { songs} from '../store/audioStore';
+import { songs, songsList} from '../store/audioStore';
 import { updateProgress} from './progress';
 import { writable, get, derived } from 'svelte/store';
 
@@ -6,7 +6,13 @@ import { writable, get, derived } from 'svelte/store';
 export let audioElement: HTMLAudioElement;
 //for the song selection
 export let currentSongIndex = writable(0);
-export const currentSong = derived([songs, currentSongIndex], ([$songs, $currentSongIndex]) => $songs[$currentSongIndex]);
+export const currentSong = derived([songs, currentSongIndex], ([$songs, $currentSongIndex]) => {
+  if ($songs && $songs.length > 0) {
+    const validIndex = (($currentSongIndex % $songs.length) + $songs.length) % $songs.length;
+    return $songs[validIndex];
+  }
+  return null;
+});
 //for the play button whether the audio is playing or not
 export const isPlaying = writable(false);
 //for the looping function
@@ -15,7 +21,11 @@ export const looping = writable(false);
 
 export function loadSong() {
   const song = get(currentSong);
-  if(!song) return;
+  if(!song) {
+    console.log("No song found");
+    return;
+  };
+
   if (audioElement) {
     audioElement.pause();
     audioElement.currentTime = 0;
@@ -25,7 +35,9 @@ export function loadSong() {
   
   audioElement = new Audio(song.path);
   audioElement.addEventListener('loadedmetadata', () => {
-    song.duration = audioElement.duration;
+    if(song){
+      song.duration = audioElement.duration;
+    }
   });
   
   audioElement.addEventListener('timeupdate',updateProgress);
@@ -66,7 +78,9 @@ export function nextSong(){
 //for the previous button
 export function previousSong() {
   const wasPlaying = get(isPlaying); 
-  currentSongIndex.update(i => (i - 1) % get(songs).length);
+  currentSongIndex.update(i => {
+    return ((i - 1) % songsList.length + songsList.length) % songsList.length;
+  });
   loadSong();
 
   if(!wasPlaying){
