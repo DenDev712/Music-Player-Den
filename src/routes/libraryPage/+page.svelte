@@ -36,7 +36,7 @@
       console.error('rename song directory func not working', err);
     }
   }
-  
+
 </script>
 
 <main class="library-container">
@@ -67,10 +67,10 @@
     </div>
 
     <div class="collection_buttons">
-      <button class="create_collection_button" on:click={() => collection_name()}>
+      <button class="create_collection_button" onclick={() => collection_name()}>
       Create New Collection
       </button>
-      <button class="rename_collection_button" on:click={() => rename_collection()}>
+      <button class="rename_collection_button" onclick={() => rename_collection()}>
         Rename Collection
       </button>
     </div>
