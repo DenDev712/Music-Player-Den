@@ -4,6 +4,7 @@
   import {formatTime} from '../../player/utils/progress';
   import {onMount} from 'svelte';
   import { songs, songsList } from '../../player/store/audioStore';
+  import { togglePlay } from '../../player/utils/audioControls';
   
 
   onMount(() => {
@@ -76,12 +77,12 @@
     </div>
     <div class="library-section">
       {#each $songs as song}
-      <div class="song">
+      <button class="song" onclick = {togglePlay}>
         <img class="song_cover" src={song.cover ?? "/src/library/library_covers/cover_placeholder.jpg"} alt="song cover" />
         <div class="song_title">{song.title}</div>
         <div class="song_artist">{song.artist}</div>
         <div class="song_duration">{formatTime(song.duration ?? 0)}</div>
-      </div>
+      </button>
       {/each}
     </div>
   </div>
@@ -275,7 +276,10 @@
       top: 76px;
     }
     .song {
-      padding: 1rem ;
+      background-color:#210038;
+      padding: 0;
+      border: none;
+      background: none;
       border-bottom: 2px solid rgba(255, 255, 255, 0.2);
       flex-shrink: 0;
       width: 187px;
